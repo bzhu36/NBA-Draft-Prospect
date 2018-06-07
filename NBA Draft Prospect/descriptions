@@ -1,0 +1,6 @@
+mins: Average number of minutes a player was in the game.
+pts: Average number of points a player scored per game.
+reb: Average number of times a player caught the ball after a missed shot.
+asts: Average number of times a player passed the ball to a teammate who then scored a point.
+blocks: Average number of times a player blocked an opponents shot.
+steals: Average number of times a player stole/grabbed the ball from an opponent player.
