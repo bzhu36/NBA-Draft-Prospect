@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'sports'; /*a name to be used later*/
-    src: url('EA Sports Covers SC 1.5.ttf'); /*URL to font*/
+    src: url('llbrown.ttf'); /*URL to font*/
 }
 
 :root{
@@ -42,8 +42,80 @@ h3{
   height:50%;
   margin-left:auto;
   margin-right:auto;
+  padding-bottom:100px;
 }
 
-.pic{
+.bigChart{
+  padding-top:5px;
+  height:85%;
+  width:85%;
+  margin-left:auto;
+  margin-right:auto;
+}
 
+
+ul.nav {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+li.nav {
+    float: left;
+}
+
+li.nav a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-family: "sports";
+}
+
+/* Change the link color to #111 (black) on hover */
+li.nav a:hover {
+    background-color: #111;
+}
+
+.active {
+    background-color: #4CAF50;
+}
+
+ul.compare {
+  white-space: nowrap;
+  text-align: center;
+}
+
+ul.compare, li.compare {
+  top: 100px;
+  list-style: none;
+  display: inline;
+  text-align: center;
+}
+
+.array {
+  text-align: center;
+}
+
+.compare {
+  display:inline;
+}
+
+body {
+  padding-top:65px;
+}
+
+.pic {
+  height:131px;
+  width:101px;
+}
+
+.fade {
+  opacity:0.2;
 }

@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+    <link rel="stylesheet" href="app.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+		<title>NBA Draft Prospects</title>
+	</head>
+	<body>
+		<input type="hidden" id="output" />
+		<div>
+	  <ul class="nav">
+  		<li class="nav"><a href="home.html">Home</a></li>
+  		<li class="nav"><a class="active" href="compare.html">Compare Players</a></li>
+		</ul>
+		</div>
+		<div class="array" id="array_div">
+		<ul class="compare">
+    	<li class="compare"><div class='compare' id="doncic"><img class="pic" src="images/doncic.jpg"></div></li>
+    	<li class="compare"><div class='compare' id="ayton"><img class="pic" src="images/ayton.jpg"></div></li>
+    	<li class="compare"><div class='compare' id="bagley"><img class="pic" src="images/bagley.jpg" ></div></li>
+    	<li class="compare"><div class='compare' id="jackson"><img class="pic" src="images/jackson.jpg"></div></li>
+    	<li class="compare"><div class='compare' id="bamba"><img class="pic" src="images/bamba.jpg"></div></li>
+    	<li class="compare"><div class='compare' id="porter"><img class="pic" src="images/porter.jpg"></div></li>
+    	<li class="compare"><div class='compare' id="carter"><img class="pic" src="images/carter.jpg"></div></li>
+    	<li class="compare"><div class='compare' id="bridges"><img class="pic" src="images/bridges.jpg"></div></li>
+    	<li class="compare"><div class='compare' id="young"><img class="pic" src="images/young.jpg"></div></li>
+    	<li class="compare"><div class='compare' id="alexander"><img class="pic" src="images/alexander.jpg"></div></li>
+		</ul>
+		</div>
+		<div class="bigChart" id="compare_chart_div">
+			<canvas id="compare_chart"></canvas>
+		</div>
+	</body>
+	<script>
+		var PLAYERJSON = 
+			{
+			  "doncic": {
+			    "Name": "Luka Doncic",
+			    "Team": "Real Madrid", 
+			    "GP": "33", 
+			    "MPG": "25.9", 
+			    "FGM": "4.7", 
+			    "FGA": "10.5", 
+			    "FGP": ".451", 
+			    "TPM": "1.7", 
+			    "TPA": "5.2", 
+			    "TPP": ".329", 
+			    "FTM": "4.8", 
+			    "FTA": "5.9", 
+			    "FTP": ".816", 
+			    "ORB": "0.8", 
+			    "DRB": "4.0", 
+			    "RPG": "4.8", 
+			    "APG": "4.3", 
+			    "SPG": "1.1", 
+			    "BPG": "0.3", 
+			    "PPG": "16.0"
+			  },
+			  "ayton": {
+			    "Name": "DeAndre Ayton",
+			    "Team": "University of Arizona", 
+			    "GP": "35", 
+			    "MPG": "33.5", 
+			    "FGM": "7.9", 
+			    "FGA": "12.9", 
+			    "FGP": ".612", 
+			    "TPM": "0.3", 
+			    "TPA": "1.0", 
+			    "TPP": ".343", 
+			    "FTM": "4.0", 
+			    "FTA": "5.5", 
+			    "FTP": ".733", 
+			    "ORB": "3.4", 
+			    "DRB": "8.2", 
+			    "RPG": "11.6", 
+			    "APG": "1.6", 
+			    "SPG": "0.6", 
+			    "BPG": "1.9", 
+			    "PPG": "20.1"
+			  }, 
+			  "bagley": {
+			  	"Name": "Marvin Bagley III",
+			    "Team": "DUKE", 
+			    "GP": "33", 
+			    "MPG": "33.9", 
+			    "FGM": "8.2", 
+			    "FGA": "13.3", 
+			    "FGP": ".614", 
+			    "TPM": "0.7", 
+			    "TPA": "1.8", 
+			    "TPP": ".397", 
+			    "FTM": "4.0", 
+			    "FTA": "6.3", 
+			    "FTP": ".627", 
+			    "ORB": "4.0", 
+			    "DRB": "7.1", 
+			    "RPG": "11.1", 
+			    "APG": "1.5", 
+			    "SPG": "0.8", 
+			    "BPG": "0.9", 
+			    "PPG": "21.0"
+			  },
+			  "jackson": {
+			    "Name": "Jaren Jackson Jr.",
+			    "Team": "Michigan State University", 
+			    "GP": "35", 
+			    "MPG": "21.8", 
+			    "FGM": "3.4", 
+			    "FGA": "6.6", 
+			    "FGP": ".513", 
+			    "TPM": "1.1", 
+			    "TPA": "2.7", 
+			    "TPP": ".396", 
+			    "FTM": "3.0", 
+			    "FTA": "3.8", 
+			    "FTP": ".797", 
+			    "ORB": "1.5", 
+			    "DRB": "4.3", 
+			    "RPG": "5.8", 
+			    "APG": "1.1", 
+			    "SPG": "0.6", 
+			    "BPG": "3.0", 
+			    "PPG": "10.9"
+			  },  
+			  "bamba": {
+			  	"Name": "Mo Bamba",
+			    "Team": "University of Texas", 
+			    "GP": "30", 
+			    "MPG": "30.2", 
+			    "FGM": "4.9", 
+			    "FGA": "9.0", 
+			    "FGP": ".541", 
+			    "TPM": "0.5", 
+			    "TPA": "1.7", 
+			    "TPP": ".275", 
+			    "FTM": "2.7", 
+			    "FTA": "4.0", 
+			    "FTP": ".681", 
+			    "ORB": "3.2", 
+			    "DRB": "7.3", 
+			    "RPG": "10.5", 
+			    "APG": "0.5", 
+			    "SPG": "0.8", 
+			    "BPG": "3.6", 
+			    "PPG": "12.9"
+			  }, 
+			  "porter": {
+			  	"Name": "Michael Porter Jr.",
+			    "Team": "Missouri State University", 
+			    "GP": "3", 
+			    "MPG": "17.7", 
+			    "FGM": "3.3", 
+			    "FGA": "10.0", 
+			    "FGP": ".333", 
+			    "TPM": "1.0", 
+			    "TPA": "3.3", 
+			    "TPP": ".300", 
+			    "FTM": "2.3", 
+			    "FTA": "3.0", 
+			    "FTP": ".778", 
+			    "ORB": "1.3", 
+			    "DRB": "5.3", 
+			    "RPG": "6.7", 
+			    "APG": "0.3", 
+			    "SPG": "1.0", 
+			    "BPG": "0.3", 
+			    "PPG": "10.0"
+			  },  
+			  "carter": {
+			    "Name": "Wendall Carter Jr.",
+			    "Team": "Duke University", 
+			    "GP": "37", 
+			    "MPG": "26.9", 
+			    "FGM": "4.8", 
+			    "FGA": "8.6", 
+			    "FGP": ".561", 
+			    "TPM": "0.5", 
+			    "TPA": "1.2", 
+			    "TPP": ".413", 
+			    "FTM": "3.4", 
+			    "FTA": "4.5", 
+			    "FTP": ".738", 
+			    "ORB": "2.9", 
+			    "DRB": "6.1", 
+			    "RPG": "9.1", 
+			    "APG": "2.0", 
+			    "SPG": "0.8", 
+			    "BPG": "2.1", 
+			    "PPG": "13.5"
+			   },
+			  "bridges": {
+			  	"Name": "Mikal Bridges",
+			    "Team": "Villanova University", 
+			    "GP": "40", 
+			    "MPG": "32.1", 
+			    "FGM": "6.1", 
+			    "FGA": "11.9", 
+			    "FGP": ".514", 
+			    "TPM": "2.6", 
+			    "TPA": "6.0", 
+			    "TPP": ".435", 
+			    "FTM": "2.9", 
+			    "FTA": "3.4", 
+			    "FTP": ".851", 
+			    "ORB": "1.4", 
+			    "DRB": "3.9", 
+			    "RPG": "5.3", 
+			    "APG": "1.9", 
+			    "SPG": "1.5", 
+			    "BPG": "1.1", 
+			    "PPG": "17.6"
+			  },
+			  "young": {
+			  	"Name": "Trae Young",
+			    "Team": "Oklahoma University", 
+			    "GP": "32", 
+			    "MPG": "35.4", 
+			    "FGM": "8.2", 
+			    "FGA": "19.3", 
+			    "FGP": ".423", 
+			    "TPM": "3.7", 
+			    "TPA": "10.2", 
+			    "TPP": ".361", 
+			    "FTM": "7.4", 
+			    "FTA": "8.6", 
+			    "FTP": ".861", 
+			    "ORB": "0.4", 
+			    "DRB": "3.5", 
+			    "RPG": "3.9", 
+			    "APG": "8.7", 
+			    "SPG": "1.7", 
+			    "BPG": "0.2", 
+			    "PPG": "27.4"
+			  }, 
+			 "alexander": {
+			   	"Name": "Shai Gilgeous-Alexander",
+			    "Team": "University of Kentucky", 
+			    "GP": "37", 
+			    "MPG": "33.7", 
+			    "FGM": "4.9", 
+			    "FGA": "10.2", 
+			    "FGP": ".485", 
+			    "TPM": "0.6", 
+			    "TPA": "1.5", 
+			    "TPP": ".404", 
+			    "FTM": "3.9", 
+			    "FTA": "4.7", 
+			    "FTP": ".822", 
+			    "ORB": "0.9", 
+			    "DRB": "3.2", 
+			    "RPG": "4.1", 
+			    "APG": "5.1", 
+			    "SPG": "1.6", 
+			    "BPG": "0.5", 
+			    "PPG": "14.4"
+			  }  
+			}
+
+		function loadpic(name) {
+			var elem = document.createElement("img");
+
+			elem.setAttribute("src", "images/"+name+".jpg");
+			elem.setAttribute("alt", name);
+			document.getElement.ById(name).appendChild(elem);
+		}
+
+		function initChart() {
+		  var colors=[
+		    'rgb(255, 9, 12)', 
+		    'rgb(0, 255, 0)', 
+		    'rgb(120, 120, 120)', 
+		    'rgb(0, 0, 255)',
+		    'rgb(125, 255, 2)',
+		    'rgb(90, 12, 125)',
+		    'rgb(255, 9, 255)',
+		    'rgb(23, 255, 192)',
+		    'rgb(12, 90, 25)',
+		    'rgb(201, 126, 87)'
+	    ]
+	    var i = 0;
+	    var list = [];
+	    for (var player in PLAYERJSON) {
+	      var playerObject = findPlayer(player, PLAYERJSON);
+	      var datasetDict = {
+	        'label': playerObject['name'],
+	        'backgroundColor': colors[i],
+	        'borderColor': colors[i],
+	        'data': [playerObject['points'], playerObject['rebounds'], playerObject['assists'], playerObject['blocks'], playerObject['steals']]
+	      }
+	      list.push(datasetDict);
+	      i = i+1;
+	    }
+	    var ctx = document.getElementById('compare_chart');
+	    var chart = new Chart(ctx, {
+	      type: 'bar',
+	      data: {
+	        labels: ['points', 'rebounds', 'assists', 'blocks', 'steals'],
+	        datasets: list
+	      },
+	      options: {
+	      }
+	    });
+
+	    return chart;
+		}
+
+		function findPlayer(lastName, jsonObject) {
+			var player_dict = jsonObject[lastName];
+			var player = {
+				points: player_dict["PPG"],
+				rebounds: player_dict["RPG"],
+				steals: player_dict["SPG"],
+				blocks: player_dict["BPG"],
+				minutes: player_dict["MPG"],
+				assists: player_dict["APG"],
+		    name: player_dict["Name"]
+			};
+			return player;
+		}
+
+		function setListener(name, index, chart) {
+			var pic = document.getElementById(name);
+			pic.addEventListener('click', function() {
+			if (chart.data.datasets[index]['hidden'] == null || chart.data.datasets[index]['hidden'] == 'false') {
+				chart.data.datasets[index]['hidden'] = 'true';
+				pic.classList.add('fade');
+			}
+			else {
+				delete chart.data.datasets[index]['hidden'];
+				pic.classList.remove('fade');
+			}
+			chart.update();
+			});
+		}
+
+		var theChart = initChart();
+
+		var i = 0;
+		for (var player in PLAYERJSON) {
+			setListener(player, i, theChart);
+			i = i+1;
+		}
+	</script>
+</html>

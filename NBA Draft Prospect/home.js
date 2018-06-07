@@ -244,8 +244,8 @@ function loadpic(name) {
 
 
 function loadPlayer(player) {
-	chartName = player + '_chart'
-	playerObject = findPlayer(player, PLAYERJSON)
+	var chartName = player + '_chart'
+	var playerObject = findPlayer(player, PLAYERJSON)
 	var ctx = document.getElementById(chartName).getContext('2d');
 	var chart = new Chart(ctx, {
 	    // The type of chart we want to create
@@ -253,12 +253,12 @@ function loadPlayer(player) {
 
 	    // The data for our dataset
 	    data: {
-	      labels: ["mins", "pts", "rebs", "asts", "blocks", "steals"],
+	      labels: ["points", "rebounds", "assists", "blocks", "steals"],
 	      datasets: [
 	        {
 	          backgroundColor: ['rgb(255, 99, 132)', 'rgb(255, 99, 0)', 'rgb(0, 99, 132)', 'rgb(255, 0, 132)', 'rgb(0, 99, 0)', 'rgb(0, 0, 132)'],
 	          borderColor: ['rgb(255, 99, 132)', 'rgb(255, 99, 0)', 'rgb(0, 99, 132)', 'rgb(255, 0, 132)', 'rgb(0, 99, 0)', 'rgb(0, 0, 132)'],
-	          data: [playerObject['minutes'], playerObject['points'], playerObject['rebounds'], playerObject['assists'], playerObject['blocks'], playerObject['steals']],
+	          data: [playerObject['points'], playerObject['rebounds'], playerObject['assists'], playerObject['blocks'], playerObject['steals']],
 	        }
 	      ]
 	    },
@@ -267,7 +267,7 @@ function loadPlayer(player) {
 	    options: {
 	    	legend: {
 	    		display:false
-	    	}
+	    	},
 	    }
 	});
 }
@@ -287,7 +287,7 @@ function findPlayer(lastName, jsonObject) {
 	var player_dict = jsonObject[lastName];
 	var player = {
 		points: player_dict["PPG"],
-		rebounds: parseFloat(player_dict["ORB"]) + parseFloat(player_dict["DRB"]),
+		rebounds: player_dict["RPG"],
 		steals: player_dict["SPG"],
 		blocks: player_dict["BPG"],
 		minutes: player_dict["MPG"],
