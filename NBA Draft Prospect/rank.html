@@ -9,27 +9,37 @@
 		<div>
 	  <ul class="nav">
   		<li class="nav"><a href="home.html">Home</a></li>
-  		<li class="nav"><a class="active" href="compare.html">Compare Players</a></li>
-  		<li class="nav"><a href="rank.html">Rank by Category</a></li>
+  		<li class="nav"><a href="compare.html">Compare Players</a></li>
+  		<li class="nav"><a class="active" href="rank.html">Rank by Category</a></li>
 		</ul>
 		</div>
-
-		<div class="array" id="array_div">
-			<ul class="compare">
-	    	<li class="compare"><div class='compare' id="doncic"><img class="pic" src="images/doncic.jpg"></div></li>
-	    	<li class="compare"><div class='compare' id="ayton"><img class="pic" src="images/ayton.jpg"></div></li>
-	    	<li class="compare"><div class='compare' id="bagley"><img class="pic" src="images/bagley.jpg" ></div></li>
-	    	<li class="compare"><div class='compare' id="jackson"><img class="pic" src="images/jackson.jpg"></div></li>
-	    	<li class="compare"><div class='compare' id="bamba"><img class="pic" src="images/bamba.jpg"></div></li>
-	    	<li class="compare"><div class='compare' id="porter"><img class="pic" src="images/porter.jpg"></div></li>
-	    	<li class="compare"><div class='compare' id="carter"><img class="pic" src="images/carter.jpg"></div></li>
-	    	<li class="compare"><div class='compare' id="bridges"><img class="pic" src="images/bridges.jpg"></div></li>
-	    	<li class="compare"><div class='compare' id="young"><img class="pic" src="images/young.jpg"></div></li>
-	    	<li class="compare"><div class='compare' id="alexander"><img class="pic" src="images/alexander.jpg"></div></li>
-			</ul>
+		<div class="dropdown">
+  		<button class="dropbtn" id="filterbutton">Filter by</button>
+  		<div class="dropdown-content">
+    		<a class="active" onClick="updateGraph('points', theChart)" id="points">Points</a>
+    		<a onClick="updateGraph('rebounds', theChart)" id="rebounds">Rebounds</a>
+    		<a onClick="updateGraph('assists', theChart)" id="assists">Assists</a>
+    		<a onClick="updateGraph('blocks', theChart)" id="blocks">Blocks</a>
+    		<a onClick="updateGraph('steals', theChart)" id="steals">Steals</a>
+  		</div>
 		</div>
-		<div class="bigChart" id="compare_chart_div">
-			<canvas id="compare_chart"></canvas>
+		<div class="array" id="array_div">
+		<ul class="compare">
+    	<li class="compare"><div class='compare' ><img id="1" class="pic" src="images/young.jpg"></div></li>
+    	<li class="compare"><div class='compare' ><img id="2" class="pic" src="images/bagley.jpg" ></div></li>
+    	<li class="compare"><div class='compare' ><img id="3" class="pic" src="images/ayton.jpg"></div></li>
+    	<li class="compare"><div class='compare' ><img id="4" class="pic" src="images/bridges.jpg"></div></li>
+    	<li class="compare"><div class='compare' ><img id="5" class="pic" src="images/doncic.jpg"></div></li>
+    	<li class="compare"><div class='compare' ><img id="6" class="pic" src="images/alexander.jpg"></div></li>
+    	<li class="compare"><div class='compare' ><img id="7" class="pic" src="images/carter.jpg"></div></li>
+    	<li class="compare"><div class='compare' ><img id="8" class="pic" src="images/bamba.jpg"></div></li>
+    	<li class="compare"><div class='compare' ><img id="9" class="pic" src="images/jackson.jpg"></div></li>
+    	<li class="compare"><div class='compare' ><img id="10" class="pic" src="images/porter.jpg"></div></li>
+
+		</ul>
+		</div>
+		<div class="bigChart" id="rank_chart_div">
+			<canvas id="rank_chart"></canvas>
 		</div>
 	</body>
 	<script>
@@ -54,7 +64,7 @@
 			    "RPG": "4.8", 
 			    "APG": "4.3", 
 			    "SPG": "1.1", 
-			    "BPG": "0.3", 
+			    "BPG": "0.4", 
 			    "PPG": "16.0"
 			  },
 			  "ayton": {
@@ -75,7 +85,7 @@
 			    "DRB": "8.2", 
 			    "RPG": "11.6", 
 			    "APG": "1.6", 
-			    "SPG": "0.6", 
+			    "SPG": "0.61", 
 			    "BPG": "1.9", 
 			    "PPG": "20.1"
 			  }, 
@@ -97,7 +107,7 @@
 			    "DRB": "7.1", 
 			    "RPG": "11.1", 
 			    "APG": "1.5", 
-			    "SPG": "0.8", 
+			    "SPG": "0.9", 
 			    "BPG": "0.9", 
 			    "PPG": "21.0"
 			  },
@@ -141,7 +151,7 @@
 			    "DRB": "7.3", 
 			    "RPG": "10.5", 
 			    "APG": "0.5", 
-			    "SPG": "0.8", 
+			    "SPG": "0.7", 
 			    "BPG": "3.6", 
 			    "PPG": "12.9"
 			  }, 
@@ -162,7 +172,7 @@
 			    "ORB": "1.3", 
 			    "DRB": "5.3", 
 			    "RPG": "6.7", 
-			    "APG": "0.3", 
+			    "APG": "0.4", 
 			    "SPG": "1.0", 
 			    "BPG": "0.3", 
 			    "PPG": "10.5"
@@ -256,66 +266,6 @@
 			    "PPG": "14.4"
 			  }  
 			}
-
-		function loadpic(name) {
-			var elem = document.createElement("img");
-
-			elem.setAttribute("src", "images/"+name+".jpg");
-			elem.setAttribute("alt", name);
-			document.getElement.ById(name).appendChild(elem);
-		}
-
-		function initChart() {
-		  var colors=[
-		    'rgb(255, 9, 12)', 
-		    'rgb(0, 255, 0)', 
-		    'rgb(120, 120, 120)', 
-		    'rgb(0, 0, 255)',
-		    'rgb(255, 255, 0)',
-		    'rgb(90, 12, 125)',
-		    'rgb(255, 9, 255)',
-		    'rgb(23, 255, 192)',
-		    'rgb(12, 90, 25)',
-		    'rgb(255, 127, 80)'
-	    ]
-	    var i = 0;
-	    var list = [];
-	    for (var player in PLAYERJSON) {
-	      var playerObject = findPlayer(player, PLAYERJSON);
-	      var datasetDict = {
-	        'label': playerObject['name'],
-	        'backgroundColor': colors[i],
-	        'borderColor': colors[i],
-	        'data': [playerObject['points'], playerObject['rebounds'], playerObject['assists'], playerObject['blocks'], playerObject['steals']]
-	      }
-	      if (player == 'doncic' || player == 'ayton') {
-	      } else {
-	      	datasetDict['hidden'] = 'true';
-	      	var pic = document.getElementById(player);
-	      	pic.classList.add('fade');
-	      }
-	      list.push(datasetDict);
-	      i = i+1;
-	    }
-	    var ctx = document.getElementById('compare_chart');
-	    var chart = new Chart(ctx, {
-	      type: 'bar',
-	      data: {
-	        labels: ['points', 'rebounds', 'assists', 'blocks', 'steals'],
-	        datasets: list
-	      },
-	      options: {
-	        legend: {
-    				onClick: function (e) {
-        			e.stopPropagation();
-    				}
-					}
-	      }
-	    });
-
-	    return chart;
-		}
-
 		function findPlayer(lastName, jsonObject) {
 			var player_dict = jsonObject[lastName];
 			var player = {
@@ -330,28 +280,136 @@
 			return player;
 		}
 
-
-		function setListener(name, index, chart) {
-			var pic = document.getElementById(name);
-			pic.addEventListener('click', function() {
-			if (chart.data.datasets[index]['hidden'] == null || chart.data.datasets[index]['hidden'] == 'false') {
-				chart.data.datasets[index]['hidden'] = 'true';
-				pic.classList.add('fade');
-			}
-			else {
-				delete chart.data.datasets[index]['hidden'];
-				pic.classList.remove('fade');
-			}
-			chart.update();
-			});
+		function initGraph() {
+			console.log('hi')
 		}
 
-		var theChart = initChart();
-
-		var i = 0;
-		for (var player in PLAYERJSON) {
-			setListener(player, i, theChart);
-			i = i+1;
+		function clearState() {
+			var pts = document.getElementById('points');
+			var rebs = document.getElementById('rebounds');
+			var asts = document.getElementById('assists');
+			var blks = document.getElementById('blocks');
+			var stls = document.getElementById('steals');
+			pts.classList.remove('active');
+			rebs.classList.remove('active');
+			asts.classList.remove('active');
+			blks.classList.remove('active');
+			stls.classList.remove('active');
 		}
+
+		function updateDropdown(category) {
+			clearState();
+			var element = document.getElementById(category);
+			element.classList.add('active');
+			document.getElementById('filterbutton').innerText="Filter by: " + category
+
+		}
+
+		function initGraph(category) {
+			var statList = [];
+			var playerMap = [];
+			for (var player in PLAYERJSON) {
+				playerObject = findPlayer(player, PLAYERJSON)
+				playerMap[playerObject[category]] = player;
+				statList.push(playerObject[category])
+			}
+			statList.sort();
+
+	    var ctx = document.getElementById('rank_chart');
+	    var colors=[
+		    'rgb(255, 9, 12)', 
+		    'rgb(0, 255, 0)', 
+		    'rgb(120, 120, 120)', 
+		    'rgb(0, 0, 255)',
+		    'rgb(255, 255, 0)',
+		    'rgb(90, 12, 125)',
+		    'rgb(255, 9, 255)',
+		    'rgb(23, 255, 192)',
+		    'rgb(12, 90, 25)',
+		    'rgb(255, 127, 80)'
+		  ];
+
+		  var dataList = []
+		  var labelsList = [];
+		  var i;
+		  for (i = 9; i >= 0; i--) {
+		  	var player = playerMap[statList[i]]
+		  	playerObject = findPlayer(player, PLAYERJSON);
+		  	labelsList.push(playerObject['name']);
+		  	dataList.push(playerObject[category])
+		  }
+		  var chart = new Chart(ctx, {
+	      type: 'bar',
+	      data: {
+	      	labels: labelsList,
+	        datasets: [
+	        {
+	        	backgroundColor: colors,
+	        	borderColor: colors,
+	        	data: dataList
+	        }]
+	      },
+	      options: {
+	      	legend: {
+	      		display: false
+	      	}
+	      }
+	    });
+
+	    return chart;
+		}
+
+		function updateGraph(category, chart) {
+			var statList = [];
+			var playerMap = [];
+			for (var player in PLAYERJSON) {
+				playerObject = findPlayer(player, PLAYERJSON)
+				playerMap[playerObject[category]] = player;
+				statList.push(playerObject[category])
+			}
+			statList.sort((a, b) => a - b);
+			console.log(statList)
+
+			var colors=[
+		    'rgb(255, 9, 12)', 
+		    'rgb(0, 255, 0)', 
+		    'rgb(120, 120, 120)', 
+		    'rgb(0, 0, 255)',
+		    'rgb(255, 255, 0)',
+		    'rgb(90, 12, 125)',
+		    'rgb(255, 9, 255)',
+		    'rgb(23, 255, 192)',
+		    'rgb(12, 90, 25)',
+		    'rgb(255, 127, 80)'
+		  ];
+
+		  var dataList = []
+		  var labelsList = [];
+		  var i;
+		  var counter = 1;
+		  for (i = 9; i >= 0; i--) {
+		  	var player = playerMap[statList[i]]
+		  	var fileName = "images/" + player + ".jpg"
+		  	var counterString = String(counter)
+		  	document.getElementById(counterString).src=fileName
+		  	playerObject = findPlayer(player, PLAYERJSON);
+		  	labelsList.push(playerObject['name']);
+		  	dataList.push(playerObject[category])
+		  	counter = counter + 1;
+		  }
+
+		  chart.data.datasets = [
+        {
+        	backgroundColor: colors,
+        	borderColor: colors,
+        	data: dataList
+        }]
+
+      chart.data.labels = labelsList;
+      chart.update();
+      updateDropdown(category)
+		}
+
+		var theChart = initGraph('points');
 	</script>
-</html>
+	</html>

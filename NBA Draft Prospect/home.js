@@ -130,7 +130,7 @@ var PLAYERJSON =
             "APG": "0.3", 
             "SPG": "1.0", 
             "BPG": "0.3", 
-            "PPG": "10.0"
+            "PPG": "10.5"
         },  
         "bridges": {
         	"Name": "Mikal Bridges",
@@ -223,7 +223,6 @@ var PLAYERJSON =
 }
 
 function loadAllPlayers() {
-	console.log(PLAYERJSON)
 	for (var player in PLAYERJSON) {
 		loadPlayer(player, PLAYERJSON);
 	}
@@ -256,8 +255,8 @@ function loadPlayer(player) {
 	      labels: ["points", "rebounds", "assists", "blocks", "steals"],
 	      datasets: [
 	        {
-	          backgroundColor: ['rgb(255, 99, 132)', 'rgb(255, 99, 0)', 'rgb(0, 99, 132)', 'rgb(255, 0, 132)', 'rgb(0, 99, 0)', 'rgb(0, 0, 132)'],
-	          borderColor: ['rgb(255, 99, 132)', 'rgb(255, 99, 0)', 'rgb(0, 99, 132)', 'rgb(255, 0, 132)', 'rgb(0, 99, 0)', 'rgb(0, 0, 132)'],
+	          backgroundColor: ["#ff6600", "#cd3b54", "#59b953", "#ba4fb9", "#0000ff"],
+	          borderColor: ["#ff6600", "#cd3b54", "#59b953", "#ba4fb9", "#0000ff"],
 	          data: [playerObject['points'], playerObject['rebounds'], playerObject['assists'], playerObject['blocks'], playerObject['steals']],
 	        }
 	      ]
